@@ -3,6 +3,9 @@ name: Flutter CI/CD
 on:
   push:
     branches:
+      - dev
+  pull_request:
+    branches:
       - main
 
 jobs:
