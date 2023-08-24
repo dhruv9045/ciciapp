@@ -24,6 +24,10 @@ jobs:
         with:
           flutter-version: "3.10.0"
           channel: "stable"
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          dart-sdk: '3.0.2' 
 
       - name: Install dependencies
         run: flutter --version
