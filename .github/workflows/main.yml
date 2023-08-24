@@ -3,21 +3,44 @@ name: Flutter CI/CD
 on:
   push:
     branches:
+      - dev
+  pull_request:
+    branches:
       - main
 
 jobs:
   build:
     name: Build, Test, and Deploy
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        
+      - name: Java Version
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
+      
+     
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.10.0" # Use the desired Flutter version
+          flutter-version: "3.10.0"
+          channel: "stable"
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          dart-sdk: "3.0.2" 
+          channel: 'stable'
+     
+      - name: Flutter upgrade
+        run: flutter upgrade --force
+        
+      - name: Install dependencies
+        run: flutter --version
 
       - name: Install dependencies
         run: flutter pub get
@@ -26,4 +49,7 @@ jobs:
         run: flutter test
 
       - name: Build release APK
-        run: flutter build apk --release
+        run: flutter build apk
+
+      - name: Build release Bundle
+        run: flutter build appbundle
