@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
       - name: Java Version
         uses: actions/setup-java@v2
         with:
@@ -27,10 +28,12 @@ jobs:
         with:
           flutter-version: "3.10.0"
           channel: "stable"
+          
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
         with:
-          dart-sdk: '3.0.2' 
+          dart-sdk: "3.0.2" 
+          channel: 'stable'
 
       - name: Install dependencies
         run: flutter --version
